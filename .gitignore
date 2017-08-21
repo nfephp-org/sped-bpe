@@ -1,0 +1,14 @@
+.idea
+limpaTAB.php
+*~
+messdetector.txt
+src/Tags
+src/NFe.php
+src/Tag.php
+config.json
+local
+vendor
+nbproject
+build
+composer.lock
+config.json
