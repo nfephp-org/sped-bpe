@@ -1,14 +1,8 @@
 .idea
-limpaTAB.php
 *~
-messdetector.txt
-src/Tags
-src/NFe.php
-src/Tag.php
-config.json
 local
+outros
 vendor
 nbproject
-build
 composer.lock
 config.json
