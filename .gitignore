@@ -1,0 +1,8 @@
+.idea
+*~
+local
+outros
+vendor
+nbproject
+composer.lock
+config.json
