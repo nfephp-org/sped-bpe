@@ -6,3 +6,5 @@ vendor
 nbproject
 composer.lock
 config.json
+examples/gerarBpeDev.php
+examples/xml
