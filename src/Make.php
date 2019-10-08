@@ -1297,15 +1297,21 @@ class Make
         );
         $this->dom->appChild($this->infBPe, $this->emit, 'Falta tag "infCte"');
 
-        $this->dom->appChild($this->comp, $this->enderComp, 'Falta tag "comp"');
-        $this->dom->appChild($this->infBPe, $this->comp, 'Falta tag "infCte"');
+        if ($this->comp != '') {
+            if ($this->enderComp != '') {
+                $this->dom->appChild($this->comp, $this->enderComp, 'Falta tag "comp"');
+            }
+            $this->dom->appChild($this->infBPe, $this->comp, 'Falta tag "infCte"');
+        }
 
         $this->dom->appChild($this->agencia, $this->enderAgencia, 'Falta tag "agencia"');
         $this->dom->appChild($this->infBPe, $this->agencia, 'Falta tag "infCte"');
         if ($this->infBPeSub != '') {
             $this->dom->appChild($this->infBPe, $this->infBPeSub, 'Falta tag "infCte"');
         }
-        $this->dom->appChild($this->infPassagem, $this->infPassageiro, 'Falta tag "infPassagem"');
+        if ($this->infPassageiro != '') {
+            $this->dom->appChild($this->infPassagem, $this->infPassageiro, 'Falta tag "infPassagem"');
+        }
         $this->dom->appChild($this->infBPe, $this->infPassagem, 'Falta tag "infCte"');
         if ($this->infTravessia != '') {
             $this->dom->appChild($this->infViagem, $this->infTravessia, 'Falta tag "infViagem"');
@@ -1332,47 +1338,7 @@ class Make
         //[0] tag BPe
         $this->dom->appendChild($this->BPe);
 
-        // testa da chave
-        $this->checkCTeKey($this->dom);
         $this->xml = $this->dom->saveXML();
         return true;
-    }
-
-    protected function checkCTeKey(Dom $dom)
-    {
-        $infCTe = $dom->getElementsByTagName("infBPe")->item(0);
-        $ide = $dom->getElementsByTagName("ide")->item(0);
-        $emit = $dom->getElementsByTagName("emit")->item(0);
-        $cUF = $ide->getElementsByTagName('cUF')->item(0)->nodeValue;
-        $dhEmi = $ide->getElementsByTagName('dhEmi')->item(0)->nodeValue;
-        $cnpj = $emit->getElementsByTagName('CNPJ')->item(0)->nodeValue;
-        $mod = $ide->getElementsByTagName('mod')->item(0)->nodeValue;
-        $serie = $ide->getElementsByTagName('serie')->item(0)->nodeValue;
-        $nNF = $ide->getElementsByTagName('nBP')->item(0)->nodeValue;
-        $tpEmis = $ide->getElementsByTagName('tpEmis')->item(0)->nodeValue;
-        $cCT = $ide->getElementsByTagName('cBP')->item(0)->nodeValue;
-        $chave = str_replace('BPe', '', $infCTe->getAttribute("Id"));
-
-        $dt = new DateTime($dhEmi);
-
-        $chaveMontada = Keys::build(
-            $cUF,
-            $dt->format('y'),
-            $dt->format('m'),
-            $cnpj,
-            $mod,
-            $serie,
-            $nNF,
-            $tpEmis,
-            $cCT
-        );
-        //caso a chave contida no CTe esteja errada
-        //substituir a chave
-        if ($chaveMontada != $chave) {
-            $ide->getElementsByTagName('cDV')->item(0)->nodeValue = substr($chaveMontada, -1);
-            $infCTe = $dom->getElementsByTagName("infBPe")->item(0);
-            $infCTe->setAttribute("Id", "BPe" . $chaveMontada);
-            $this->chBPe = $chaveMontada;
-        }
     }
 }

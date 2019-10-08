@@ -41,6 +41,8 @@ class Standardize
      */
     public $rootTagList = [
         'enviBPe',
+        'bpeResultMsg',
+        'retBPe',
 //        'retEnviCte',
 //        'retConsReciCTe',
 //        'consSitCTe',
