@@ -7,18 +7,18 @@
             <!--<BPeRecepcaoOS method='BPeRecepcaoOS' operation='BPeRecepcaoOS' version='1.00'>https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcaoOS/BPeRecepcaoOS.asmx</BPeRecepcaoOS>-->
             <!--<BPeRetRecepcao method='CTeRetRecepcao' operation='BPeRetRecepcao' version='1.00'>https://cte-homologacao.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx</BPeRetRecepcao>-->
             <!--<BPeConsultaProtocolo method='cteConsultaCT' operation='BPeConsulta' version='1.00'>https://cte-homologacao.svrs.rs.gov.br/ws/cteconsulta/BPeConsulta.asmx</BPeConsultaProtocolo>-->
-            <!--<BPeRecepcaoEvento method='cteRecepcaoEvento' operation='BPeRecepcaoEvento' version='1.00'>https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx</BPeRecepcaoEvento>-->
+            <BPeRecepcaoEvento method='BPeRecepcaoEvento' operation='BPeRecepcaoEvento' version='1.00'>https://bpe-homologacao.svrs.rs.gov.br/ws/bpeRecepcaoEvento/bpeRecepcaoEvento.asmx</BPeRecepcaoEvento>
             <!--<BPeInutilizacao method='CTeInutilizacao' operation='BPeInutilizacao' version='1.00'>https://cte-homologacao.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx</BPeInutilizacao>-->
-            <BPeStatusServico method='bpeStatusServicoBP' operation='BPeStatusServico' version='1.00'>https://bpe-homologacao.svrs.rs.gov.br/ws/bpeStatusServico/bpeStatusServico.asmx</BPeStatusServico>
+            <BPeStatusServico method='BPeStatusServicoBP' operation='BPeStatusServico' version='1.00'>https://bpe-homologacao.svrs.rs.gov.br/ws/bpeStatusServico/bpeStatusServico.asmx</BPeStatusServico>
         </homologacao>
-        <!--<producao>-->
-            <!--<BPeRecepcao method='CTeRecepcao' operation='BPeRecepcao' version='3.00'>https://cte.svrs.rs.gov.br/ws/cterecepcao/BPeRecepcao.asmx</BPeRecepcao>-->
+        <producao>
+            <BPeRecepcao method='BPeRecepcao' operation='BPeRecepcao' version='1.00'>https://bpe.svrs.rs.gov.br/ws/bpeRecepcao/bpeRecepcao.asmx</BPeRecepcao>
             <!--<BPeRecepcaoOS method='BPeRecepcaoOS' operation='BPeRecepcaoOS' version='3.00'>https://cte.svrs.rs.gov.br/ws/cterecepcaoos/cterecepcaoos.asmx</BPeRecepcaoOS>-->
             <!--<BPeRetRecepcao method='CTeRetRecepcao' operation='BPeRetRecepcao' version='3.00'>https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx</BPeRetRecepcao>-->
             <!--<BPeConsultaProtocolo method='cteConsultaCT' operation='BPeConsulta' version='3.00'>https://cte.svrs.rs.gov.br/ws/cteconsulta/BPeConsulta.asmx</BPeConsultaProtocolo>-->
-            <!--<BPeRecepcaoEvento method='cteRecepcaoEvento' operation='BPeRecepcaoEvento' version='3.00'>https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx</BPeRecepcaoEvento>-->
+            <BPeRecepcaoEvento method='BPeRecepcaoEvento' operation='BPeRecepcaoEvento' version='1.00'>https://bpe.svrs.rs.gov.br/ws/bpeRecepcaoEvento/bpeRecepcaoEvento.asmx</BPeRecepcaoEvento>
             <!--<BPeInutilizacao method='CTeInutilizacao' operation='BPeInutilizacao' version='3.00'>https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx</BPeInutilizacao>-->
-            <!--<BPeStatusServico method='cteStatusServicoCT' operation='BPeStatusServico' version='3.00'>https://cte.svrs.rs.gov.br/ws/ctestatusservico/BPeStatusServico.asmx</BPeStatusServico>-->
-        <!--</producao>-->
+            <BPeStatusServico method='BPeStatusServicoBP' operation='BPeStatusServico' version='1.00'>https://bpe.svrs.rs.gov.br/ws/bpeStatusServico/bpeStatusServico.asmx</BPeStatusServico>
+        </producao>
     </UF>
 </WS>

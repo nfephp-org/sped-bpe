@@ -604,6 +604,7 @@ class Tools
     {
         if (empty($this->soap)) {
             $this->soap = new SoapCurl($this->certificate);
+            $this->soap->setTemporaryFolder(__DIR__.'/../../tmp/');
         }
     }
 }

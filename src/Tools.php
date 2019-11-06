@@ -473,34 +473,34 @@ class Tools extends ToolsCommon
 //        );
 //    }
 //
-//    /**
-//     * Requires cte cancellation
-//     * @param  string $chave key of CTe
-//     * @param  string $xJust justificative 255 characters max
-//     * @param  string $nProt protocol number
-//     * @return string
-//     */
-//    public function sefazCancela($chave, $xJust, $nProt)
-//    {
-//        $uf = $this->validKeyByUF($chave);
-//        $xJust = Strings::replaceSpecialsChars(
-//            substr(trim($xJust), 0, 255)
-//        );
-//        $tpEvento = 110111;
-//        $nSeqEvento = 1;
-//        $tagAdic = "<evCancCTe>"
-//            . "<descEvento>Cancelamento</descEvento>"
-//            . "<nProt>$nProt</nProt>"
-//            . "<xJust>$xJust</xJust>"
-//            . "</evCancCTe>";
-//        return $this->sefazEvento(
-//            $uf,
-//            $chave,
-//            $tpEvento,
-//            $nSeqEvento,
-//            $tagAdic
-//        );
-//    }
+    /**
+     * Requires cte cancellation
+     * @param  string $chave key of CTe
+     * @param  string $xJust justificative 255 characters max
+     * @param  string $nProt protocol number
+     * @return string
+     */
+    public function sefazCancela($chave, $xJust, $nProt)
+    {
+        $uf = $this->validKeyByUF($chave);
+        $xJust = Strings::replaceSpecialsChars(
+            substr(trim($xJust), 0, 255)
+        );
+        $tpEvento = 110111;
+        $nSeqEvento = 1;
+        $tagAdic = "<evCancBPe>"
+            . "<descEvento>Cancelamento</descEvento>"
+            . "<nProt>$nProt</nProt>"
+            . "<xJust>$xJust</xJust>"
+            . "</evCancBPe>";
+        return $this->sefazEvento(
+            $uf,
+            $chave,
+            $tpEvento,
+            $nSeqEvento,
+            $tagAdic
+        );
+    }
 //
 //    /**
 //     * Request the registration of the manifestation of recipient
@@ -610,79 +610,79 @@ class Tools extends ToolsCommon
 //            $tagAdic
 //        );
 //    }
-//
-//    /**
-//     * Send event to SEFAZ
-//     * @param string $uf
-//     * @param string $chave
-//     * @param int $tpEvento
-//     * @param int $nSeqEvento
-//     * @param string $tagAdic
-//     * @return string
-//     */
-//    public function sefazEvento(
-//        $uf,
-//        $chave,
-//        $tpEvento,
-//        $nSeqEvento = 1,
-//        $tagAdic = ''
-//    ) {
-//        $ignore = false;
+
+    /**
+     * Send event to SEFAZ
+     * @param string $uf
+     * @param string $chave
+     * @param int $tpEvento
+     * @param int $nSeqEvento
+     * @param string $tagAdic
+     * @return string
+     */
+    public function sefazEvento(
+        $uf,
+        $chave,
+        $tpEvento,
+        $nSeqEvento = 1,
+        $tagAdic = ''
+    ) {
+        $ignore = false;
 //        if ($tpEvento == 110140) {
 //            $ignore = true;
 //        }
-//        $servico = 'CteRecepcaoEvento';
-//        $this->checkContingencyForWebServices($servico);
-//        $this->servico(
-//            $servico,
-//            $uf,
-//            $this->tpAmb,
-//            $ignore
-//        );
-//        $ev = $this->tpEv($tpEvento);
-//        $aliasEvento = $ev->alias;
-//        $descEvento = $ev->desc;
-//        $cnpj = $this->config->cnpj;
-//        $dt = new \DateTime();
-//        $dhEvento = $dt->format('Y-m-d\TH:i:sP');
-//        $sSeqEvento = str_pad($nSeqEvento, 2, "0", STR_PAD_LEFT);
-//        $eventId = "ID".$tpEvento.$chave.$sSeqEvento;
-//        $cOrgao = UFList::getCodeByUF($uf);
-//
-//        $request = "<eventoCTe xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
-//            . "<infEvento Id=\"$eventId\">"
-//            . "<cOrgao>$cOrgao</cOrgao>"
-//            . "<tpAmb>$this->tpAmb</tpAmb>"
-//            . "<CNPJ>$cnpj</CNPJ>"
-//            . "<chCTe>$chave</chCTe>"
-//            . "<dhEvento>$dhEvento</dhEvento>"
-//            . "<tpEvento>$tpEvento</tpEvento>"
-//            . "<nSeqEvento>$nSeqEvento</nSeqEvento>"
-//            . "<detEvento versaoEvento=\"$this->urlVersion\">"
-//            . "$tagAdic"
-//            . "</detEvento>"
-//            . "</infEvento>"
-//            . "</eventoCTe>";
-//
-//        //assinatura dos dados
-//        $request = Signer::sign(
-//            $this->certificate,
-//            $request,
-//            'infEvento',
-//            'Id',
-//            $this->algorithm,
-//            $this->canonical
-//        );
-//
-//        $request = Strings::clearXmlString($request, true);
-//        $this->isValid($this->urlVersion, $request, 'eventoCTe');
-//        $this->lastRequest = $request;
-//        $parameters = ['cteDadosMsg' => $request];
-//        $body = "<cteDadosMsg xmlns=\"$this->urlNamespace\">$request</cteDadosMsg>";
-//        $this->lastResponse = $this->sendRequest($body, $parameters);
-//        return $this->lastResponse;
-//    }
-//
+        $servico = 'BPeRecepcaoEvento';
+        $this->checkContingencyForWebServices($servico);
+        $this->servico(
+            $servico,
+            $uf,
+            $this->tpAmb,
+            $ignore
+        );
+        $ev = $this->tpEv($tpEvento);
+        $aliasEvento = $ev->alias;
+        $descEvento = $ev->desc;
+        $cnpj = $this->config->cnpj;
+        $dt = new \DateTime();
+        $dhEvento = $dt->format('Y-m-d\TH:i:sP');
+        $sSeqEvento = str_pad($nSeqEvento, 2, "0", STR_PAD_LEFT);
+        $eventId = "ID".$tpEvento.$chave.$sSeqEvento;
+        $cOrgao = UFList::getCodeByUF($uf);
+
+        $request = "<eventoBPe xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
+            . "<infEvento Id=\"$eventId\">"
+            . "<cOrgao>$cOrgao</cOrgao>"
+            . "<tpAmb>$this->tpAmb</tpAmb>"
+            . "<CNPJ>$cnpj</CNPJ>"
+            . "<chBPe>$chave</chBPe>"
+            . "<dhEvento>$dhEvento</dhEvento>"
+            . "<tpEvento>$tpEvento</tpEvento>"
+            . "<nSeqEvento>$nSeqEvento</nSeqEvento>"
+            . "<detEvento versaoEvento=\"$this->urlVersion\">"
+            . "$tagAdic"
+            . "</detEvento>"
+            . "</infEvento>"
+            . "</eventoBPe>";
+
+        //assinatura dos dados
+        $request = Signer::sign(
+            $this->certificate,
+            $request,
+            'infEvento',
+            'Id',
+            $this->algorithm,
+            $this->canonical
+        );
+
+        $request = Strings::clearXmlString($request, true);
+        $this->isValid($this->urlVersion, $request, 'eventoBPe');
+        $this->lastRequest = $request;
+        $parameters = ['bpeDadosMsg' => $request];
+        $body = "<bpeDadosMsg xmlns=\"$this->urlNamespace\">$request</bpeDadosMsg>";
+        $this->lastResponse = $this->sendRequest($body, $parameters);
+        return $this->lastResponse;
+    }
+
 //    /**
 //     * Request the NFe download already manifested by its recipient, by the key
 //     * using new service in CTeDistribuicaoDFe
@@ -823,28 +823,28 @@ class Tools extends ToolsCommon
 //        return false;
 //    }
 //
-//    /**
-//     *
-//     * @param  int $tpEvento
-//     * @return \stdClass
-//     * @throws Exception
-//     */
-//    private function tpEv($tpEvento)
-//    {
-//        $std = new \stdClass();
-//        $std->alias = '';
-//        $std->desc = '';
-//        switch ($tpEvento) {
+    /**
+     *
+     * @param  int $tpEvento
+     * @return \stdClass
+     * @throws Exception
+     */
+    private function tpEv($tpEvento)
+    {
+        $std = new \stdClass();
+        $std->alias = '';
+        $std->desc = '';
+        switch ($tpEvento) {
 //            case 110110:
 //                //CCe
 //                $std->alias = 'CCe';
 //                $std->desc = 'Carta de Correcao';
 //                break;
-//            case 110111:
-//                //cancelamento
-//                $std->alias = 'CancCTe';
-//                $std->desc = 'Cancelamento';
-//                break;
+            case 110111:
+                //cancelamento
+                $std->alias = 'CancBPe';
+                $std->desc = 'Cancelamento';
+                break;
 //            case 110113:
 //                //EPEC
 //                //emissão em contingência EPEC
@@ -856,13 +856,13 @@ class Tools extends ToolsCommon
 //                $std->alias = 'EvPrestDesacordo';
 //                $std->desc = 'Servico em desacordo';
 //                break;
-//            default:
-//                $msg = "O código do tipo de evento informado não corresponde a "
-//                    . "nenhum evento estabelecido.";
-//                throw new RuntimeException($msg);
-//        }
-//        return $std;
-//    }
+            default:
+                $msg = "O código do tipo de evento informado não corresponde a "
+                    . "nenhum evento estabelecido.";
+                throw new RuntimeException($msg);
+        }
+        return $std;
+    }
 //
 //    private static function serializerCCe(array $infCorrecoes)
 //    {
