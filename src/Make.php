@@ -178,6 +178,8 @@ class Make
      */
     private $impICMSICMS00 = '';
 
+    private $impICMSICMS20 = '';
+
     /**
      * Dados do pagamento
      * @var \DOMNode
@@ -1227,6 +1229,50 @@ class Make
         return $this->impICMSICMS00;
     }
 
+    public function tagimpICMSICMS20($std)
+    {
+        $identificador = '#127 <ICMS20> - ';
+        $this->impICMSICMS20 = $this->dom->createElement('ICMS20');
+        $this->dom->addChild(
+            $this->impICMSICMS20,
+            'CST',
+            $std->CST,
+            true,
+            $identificador . ''
+        );
+        $this->dom->addChild(
+            $this->impICMSICMS20,
+            'pRedBC',
+            $std->pRedBC,
+            true,
+            $identificador . ''
+        );
+        $this->dom->addChild(
+            $this->impICMSICMS20,
+            'vBC',
+            $std->vBC,
+            true,
+            $identificador . ''
+        );
+        $this->dom->addChild(
+            $this->impICMSICMS20,
+            'pICMS',
+            $std->pICMS,
+            true,
+            $identificador . ''
+        );
+        $this->dom->addChild(
+            $this->impICMSICMS20,
+            'vICMS',
+            $std->vICMS,
+            true,
+            $identificador . ''
+        );
+        return $this->impICMSICMS20;
+    }
+
+
+
     /**
      * @param $std
      * @return DOMElement
@@ -1325,6 +1371,9 @@ class Make
         $this->dom->appChild($this->infBPe, $this->infValorBPe, 'Falta tag "infCte"');
         if ($this->impICMSICMS00 != '') {
             $this->dom->appChild($this->impICMS, $this->impICMSICMS00, 'Falta tag "impICMS"');
+        }
+        if ($this->impICMSICMS20 != '') {
+            $this->dom->appChild($this->impICMS, $this->impICMSICMS20, 'Falta tag "impICMS"');
         }
         $this->dom->appChild($this->imp, $this->impICMS, 'Falta tag "imp"');
         $this->dom->appChild($this->infBPe, $this->imp, 'Falta tag "infCte"');
