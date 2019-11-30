@@ -1,5 +1,6 @@
 .idea
 *~
+.vscode
 local
 outros
 vendor

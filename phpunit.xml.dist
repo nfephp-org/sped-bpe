@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="sped-efdreinf Test Suite">
+        <testsuite name="sped-bpe Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

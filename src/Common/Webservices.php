@@ -8,7 +8,7 @@ namespace NFePHP\BPe\Common;
  *
  * @category  NFePHP
  * @package   NFePHP\CTe\Common\Webservices
- * @copyright NFePHP Copyright (c) 2008-2017
+ * @copyright NFePHP Copyright (c) 2008-2019
  * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
@@ -48,7 +48,7 @@ class Webservices
         $autorizadores = json_decode(file_get_contents($autfile), true);
         if (!key_exists($sigla, $autorizadores[$modelo])) {
             throw new \RuntimeException(
-                "Não existe o autorizador [$sigla] para os "
+                "NÃ£o existe o autorizador [$sigla] para os "
                 . "webservices do modelo [$modelo]"
             );
         }
@@ -58,7 +58,7 @@ class Webservices
         }
         if (empty($this->std->$auto)) {
             throw new \RuntimeException(
-                "Não existem webservices cadastrados para  [$sigla] no modelo [$modelo]"
+                "NÃ£o existem webservices cadastrados para  [$sigla] no modelo [$modelo]"
             );
         }
         $svw = $this->std->$auto->$ambiente;
