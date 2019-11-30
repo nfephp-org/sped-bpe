@@ -2,7 +2,7 @@
 
 API para geração e comunicação das BPe com as SEFAZ autorizadoras
 
-# APENAS DADOS INICIAIS NADA ÚTIL AINDA !!
+# Projeto em BETHA test
 
 ## Considerações Iniciais
 O Bilhete de Passagem Eletrônico (BP-e) está sendo desenvolvido de forma integrada pelas

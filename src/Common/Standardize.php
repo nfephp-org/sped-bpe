@@ -8,7 +8,7 @@ namespace NFePHP\BPe\Common;
  *
  * @category  NFePHP
  * @package   NFePHP\Common\Standardize
- * @copyright NFePHP Copyright (c) 2008-2017
+ * @copyright NFePHP Copyright (c) 2008-2019
  * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
@@ -18,7 +18,6 @@ namespace NFePHP\BPe\Common;
 
 use NFePHP\Common\Validator;
 use NFePHP\BPe\Exception\DocumentsException;
-use Symfony\Component\Yaml\Yaml;
 use DOMDocument;
 use stdClass;
 
@@ -43,20 +42,8 @@ class Standardize
         'enviBPe',
         'bpeResultMsg',
         'retBPe',
-//        'retEnviCte',
-//        'retConsReciCTe',
-//        'consSitCTe',
-//        'retConsSitCTe',
-//        'eventoCTe',
-//        'retEventoCTe',
-//        'cteRecepcaoOSResult',
-//        'evCancCTe',
-//        'inutCTe',
-//        'retInutCTe',
-//        'procInutCTe',
-//        'CTe',
-//        'CTeOS',
-//        'retConsStatServCte'
+        'consStatServBPe',
+        'retConsStatServBPe'
     ];
 
     /**
@@ -150,19 +137,5 @@ class Standardize
             $this->toStd($xml);
         }
         return json_decode($this->json, true);
-    }
-
-    /**
-     * Returns YAML from XML
-     * @param string $xml
-     * @return string
-     */
-    public function toYaml($xml = null)
-    {
-        if (!empty($xml)) {
-            $this->toStd($xml);
-        }
-        $array = $this->toArray();
-        return Yaml::dump($array, 6, 4);
     }
 }

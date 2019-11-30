@@ -1,6 +1,32 @@
 {
-  "63": {
-    "RS": "RS",
-    "SVRS": "SVRS"
-  }
-}
+    "63": {
+        "AC": "SVRS",
+        "AL": "SVRS",
+        "AM": "SVRS",
+        "AP": "SVRS",
+        "BA": "SVRS",
+        "CE": "SVRS",
+        "DF": "SVRS",
+        "ES": "SVRS",
+        "GO": "GO",
+        "MA": "SVRS",
+        "MG": "MG",
+        "MS": "MS",
+        "MT": "MT",
+        "PA": "SVRS",
+        "PB": "SVRS",
+        "PE": "SVRS",
+        "PI": "SVRS",
+        "PR": "PR",
+        "RJ": "SVRS",
+        "RN": "SVRS",
+        "RO": "SVRS",
+        "RR": "SVRS",
+        "RS": "RS",
+        "SC": "",
+        "SE": "SVRS",
+        "SP": "SP",
+        "TO": "SVRS",
+        "SVRS": "SVRS"
+    }
+}   
