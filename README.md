@@ -56,6 +56,29 @@ O sistema BP-e implementa o conceito de “evento”, que é o registro de uma a
 relacionada com o documento, que ocorreu após a autorização de uso, como o registro de um
 cancelamento, por exemplo
 
+Install
+Este pacote está listado no Packgist foi desenvolvido para uso do Composer, portanto não será explicitada nenhuma alternativa de instalação.
+
+E deve ser instalado com:
+
+composer require nfephp-org/sped-bpe
+Ou ainda alterando o composer.json do seu aplicativo inserindo:
+
+"require": {
+    "nfephp-org/sped-bpe" : "^1.0"
+}
+Para utilizar o pacote em desenvolvimento (branch master) deve ser instalado com:
+
+composer require nfephp-org/sped-bpe:dev-master
+Ou ainda alterando o composer.json do seu aplicativo inserindo:
+
+"require": {
+    "nfephp-org/sped-bpe" : "dev-master"
+}
+NOTA: Ao utilizar este pacote na versão em desenvolvimento não se esqueça de alterar o composer.json da sua aplicação para aceitar pacotes em desenvolvimento, alterando a propriedade "minimum-stability" de "stable" para "dev".
+
+"minimum-stability": "dev"
+
 ## Requirements
 
 Para que este pacote possa funcionar são necessários os seguintes requisitos do PHP e outros pacotes dos quais esse depende.
