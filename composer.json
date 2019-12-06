@@ -20,7 +20,7 @@
     "require": {
         "php" : ">=7.1",
         "nfephp-org/sped-common" : "^5.0",
-        "nesbot/carbon": "^2.2"
+        "nesbot/carbon": "^2.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.4",
