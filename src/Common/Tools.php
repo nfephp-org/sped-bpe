@@ -324,7 +324,7 @@ class Tools
         );
         $signed = $this->addQRCode($signed);
         $method = 'bpe';
-        //$this->isValid($this->versao, $signed, $method);
+        $this->isValid($this->versao, $signed, $method);
         return $signed;
     }
     

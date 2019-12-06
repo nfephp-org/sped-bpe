@@ -89,7 +89,7 @@ class Make extends MakeBase
             }
             //cria o hashCSRT geralmente é necessário quando não é criada a chave
             //durante a montagem com a classe make
-            if (!empty($this->resptec)) {
+            if (!empty($this->resptec && $this->resptec->stdsubnode->csrt != null)) {
                 $this->resptec->std->hashcsrt = $this->hashCSRT(
                     $this->resptec->stdsubnode->csrt,
                     $buildId

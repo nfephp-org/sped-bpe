@@ -121,7 +121,7 @@ class InfViagem extends Tag implements TagInterface
             'type'     => 'number',
             'regex'    => '^[0-9]{2}$',
             'position' => 'node',
-            'required' => true,
+            'required' => false,
             'info'     => 'Tipo do veículo transportado',
             'format'   => ''
             
@@ -130,7 +130,7 @@ class InfViagem extends Tag implements TagInterface
             'type'     => 'integer',
             'regex'    => '^[1-3]{1}$',
             'position' => 'node',
-            'required' => true,
+            'required' => false,
             'info'     => 'Situação do veículo transportado',
             'format'   => ''
         ]

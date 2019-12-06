@@ -92,7 +92,7 @@ class Tag
     {
         $node = $this->dom->createElement($this->name);
         $this->builder($node, $this->std, $this->possible);
-        if (!empty($this->subnode)) {
+        if (!empty($this->subnode) && $this->checkIfContentsExists($this->stdsubnode)) {
             $subnode = $this->dom->createElement($this->subnode);
             $this->builder($subnode, $this->stdsubnode, $this->possiblesubnode);
             $node->appendChild($subnode);
@@ -101,6 +101,20 @@ class Tag
         return $node;
     }
     
+    protected function checkIfContentsExists($std)
+    {
+        $response = false;
+        $arr = get_object_vars($std);
+        foreach ($arr as $key => $value) {
+            if ($value != null) {
+                $response = true;
+                break;
+            }
+        }
+        return $response;
+    }
+
+
     /**
      * Retruns node as string
      * @return string
