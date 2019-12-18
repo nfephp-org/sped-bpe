@@ -45,7 +45,7 @@ class RespTec extends Tag implements TagInterface
         ],
         'fone' => [
             'type'     => 'string',
-            'regex'    => '^[0-9]{7,12}',
+            'regex'    => '^[0-9]{7,12}$',
             'position' => 'node',
             'required' => true,
             'info'     => 'Telefone da pessoa jurídica/física a ser contatada',
@@ -53,7 +53,7 @@ class RespTec extends Tag implements TagInterface
         ],
         'idCSRT' => [
             'type'     => 'string',
-            'regex'    => '^[0-9]{3}',
+            'regex'    => '^[0-9]{3}$',
             'position' => 'node',
             'required' => false,
             'info'     => 'Identificador do CSRT',
@@ -61,7 +61,7 @@ class RespTec extends Tag implements TagInterface
         ],
         'hashCSRT' => [
             'type'     => 'string',
-            'regex'    => '^.{20}',
+            'regex'    => '^.{20}$',
             'position' => 'node',
             'required' => false,
             'info'     => 'hashCSRT',
@@ -72,7 +72,7 @@ class RespTec extends Tag implements TagInterface
     protected $possiblesubnode = [
         'CSRT' => [
             'type'     => 'string',
-            'regex'    => '^.{20,200}',
+            'regex'    => '^.{20,200}$',
             'position' => 'node',
             'required' => false,
             'info'     => 'CSRT',

@@ -155,6 +155,10 @@ class Tools
      */
     protected $urlHeader = '';
     /**
+     * @var bool
+     */
+    protected $allowSignatureInQRCode = false;
+    /**
      * @var array
      */
     protected $soapnamespaces = [
@@ -208,6 +212,16 @@ class Tools
     public function setVerAplic($ver)
     {
         $this->verAplic = $ver;
+    }
+    
+    /**
+     * Set for inclusion of sign in qrcode string
+     * @param bool $flag
+     * @return bool
+     */
+    public function setSignatureInQRCode($flag = false)
+    {
+        return $this->allowSignatureInQRCode = $flag;
     }
 
     /**
@@ -314,6 +328,13 @@ class Tools
     {
         //remove all invalid strings
         $xml = Strings::clearXmlString($xml);
+        $dom = new Dom('1.0', 'UTF-8');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = false;
+        $dom->loadXML($xml);
+        if (!empty($dom->getElementsByTagName('Signature')->item(0))) {
+            return $xml;
+        }
         $signed = Signer::sign(
             $this->certificate,
             $xml,
@@ -337,14 +358,17 @@ class Tools
         $infBPeSupl = !empty($dom->getElementsByTagName('infBPeSupl')->item(0))
             ? $dom->getElementsByTagName('infBPeSupl')->item(0)
             : null;
-        $qr = !empty($infBPeSupl->getElementsByTagName('qrCodBPe')->item(0)->nodeValue)
-            ? $infBPeSupl->getElementsByTagName('qrCodBPe')->item(0)->nodeValue
-            : null;
+        $qr = null;
+        if ($infBPeSupl != null) {
+            $qr = !empty($infBPeSupl->getElementsByTagName('qrCodBPe')->item(0))
+                ? $infBPeSupl->getElementsByTagName('qrCodBPe')->item(0)->nodeValue
+                : null;
+        }
         if ($qr != null) {
             return $signed;
         }
         $bpe = $dom->documentElement;
-        ;
+        
         $infBPe = $dom->getElementsByTagName('infBPe')->item(0);
         $chave = preg_replace('/[^0-9]/', '', $infBPe->getAttribute("Id"));
         $ide = $dom->getElementsByTagName('ide')->item(0);
@@ -355,7 +379,10 @@ class Tools
         $uf = UFList::getUFByCode($cUF);
         $this->servico('BPeQrCode', $uf, $tpAmb);
         $url = $this->urlService;
-        $qrcode = "{$url}?chBPe={$chave}&tpAmb={$tpAmb}&sign={$hash}";
+        $qrcode = "{$url}?chBPe={$chave}&tpAmb={$tpAmb}";
+        if ($this->allowSignatureInQRCode) {
+            $qrcode .= "&sign={$hash}";
+        }
         if (empty($infBPeSupl)) {
             //não existe a tag suplementar
             $infBPeSupl = $dom->createElement("infBPeSupl");

@@ -11,13 +11,13 @@ use NFePHP\BPe\Factories\TagInterface;
  */
 class Icms extends Tag implements TagInterface
 {
+
     protected $name = 'ICMS';
     protected $parent = 'infBPe';
     protected $after = '';
     protected $before = '';
-   
     protected $possible = [
-        'CST' => [
+        'CST'        => [
             'type'     => 'number',
             'regex'    => '^(00|20|45|90)$',
             'position' => 'node',
@@ -25,7 +25,7 @@ class Icms extends Tag implements TagInterface
             'info'     => 'classificação Tributária do Serviço',
             'format'   => ''
         ],
-        'indSN' => [
+        'indSN'      => [
             'type'     => 'integer',
             'regex'    => '^(1)$',
             'position' => 'node',
@@ -33,7 +33,7 @@ class Icms extends Tag implements TagInterface
             'info'     => 'Indica se o contribuinte é Simples Nacional',
             'format'   => ''
         ],
-        'pRedBC' => [
+        'pRedBC'     => [
             'type'     => 'numeric',
             'regex'    => '^0\.[0-9]{1}[1-9]{1}|0\.[1-9]{1}[0-9]{1}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?$',
             'position' => 'node',
@@ -41,7 +41,7 @@ class Icms extends Tag implements TagInterface
             'info'     => 'Percentual de redução da BC',
             'format'   => '3v2'
         ],
-        'vBC' => [
+        'vBC'        => [
             'type'     => 'numeric',
             'regex'    => '^0\.[0-9]{1}[1-9]{1}|0\.[1-9]{1}[0-9]{1}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?$',
             'position' => 'node',
@@ -49,7 +49,7 @@ class Icms extends Tag implements TagInterface
             'info'     => 'Valor da BC do ICMS',
             'format'   => '13v2'
         ],
-        'pICMS' => [
+        'pICMS'      => [
             'type'     => 'numeric',
             'regex'    => '^0\.[0-9]{1}[1-9]{1}|0\.[1-9]{1}[0-9]{1}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?$',
             'position' => 'node',
@@ -57,7 +57,7 @@ class Icms extends Tag implements TagInterface
             'info'     => 'Percentual ICMS',
             'format'   => '3v2'
         ],
-        'vICMS' => [
+        'vICMS'      => [
             'type'     => 'numeric',
             'regex'    => '^0\.[0-9]{1}[1-9]{1}|0\.[1-9]{1}[0-9]{1}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?$',
             'position' => 'node',
@@ -65,7 +65,7 @@ class Icms extends Tag implements TagInterface
             'info'     => 'Valor do ICMS',
             'format'   => '13v2'
         ],
-        'vCred' => [
+        'vCred'      => [
             'type'     => 'numeric',
             'regex'    => '^0\.[0-9]{1}[1-9]{1}|0\.[1-9]{1}[0-9]{1}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?$',
             'position' => 'node',
@@ -73,7 +73,7 @@ class Icms extends Tag implements TagInterface
             'info'     => 'Valor do Crédito Outorgado/Presumido',
             'format'   => '13v2'
         ],
-        'vTotTrib' => [
+        'vTotTrib'   => [
             'type'     => 'numeric',
             'regex'    => '^0\.[0-9]{1}[1-9]{1}|0\.[1-9]{1}[0-9]{1}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?$',
             'position' => 'node',
@@ -193,20 +193,6 @@ class Icms extends Tag implements TagInterface
                         'indSN',
                         $this->std->indsn,
                         true,
-                        ''
-                    );
-                    $this->dom->addChild(
-                        $icms,
-                        'vTotTrib',
-                        $this->std->vtottrib,
-                        false,
-                        ''
-                    );
-                    $this->dom->addChild(
-                        $icms,
-                        'infAdFisco',
-                        $this->std->infadfisco,
-                        false,
                         ''
                     );
                 } else {
