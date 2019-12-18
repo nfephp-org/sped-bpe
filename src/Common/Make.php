@@ -73,6 +73,24 @@ abstract class Make
         }
         return $this->xml;
     }
+    
+    /**
+     * Return document key
+     * @return type
+     */
+    public function getChave()
+    {
+        return $this->chave;
+    }
+    
+    /**
+     * Returns XML
+     * @return type
+     */
+    public function getXML()
+    {
+        return $this->xml;
+    }
 
     /**
      * To force convertion strings to ASCII

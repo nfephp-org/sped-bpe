@@ -153,6 +153,23 @@ try {
     $std->tpVeiculo = '01';
     $std->sitVeiculo = 1;
     $make->taginfviagem($std);
+    
+    $std = new \stdClass();
+    $std->cPercurso = '2';
+    $std->xPercurso = 'descricao do percurso 2';
+    $std->tpViagem = '00';
+    $std->tpServ = 1;
+    $std->tpAcomodacao = 1;
+    $std->tpTrecho = 2;
+    $std->dhViagem = '2019-11-30T12:05:00-03:00';
+    $std->dhConexao = null;
+    $std->prefixo = 'ZZ4';
+    $std->poltrona = 45;
+    $std->plataforma = '2';
+    //subnode inftravessia
+    $std->tpVeiculo = null;
+    $std->sitVeiculo = null;
+    $make->taginfviagem($std);
 
     $std = new \stdClass();
     $std->vBP = 123.89789;
@@ -179,7 +196,7 @@ try {
 
     $std = new \stdClass();
     $std->CST = '90';
-    $std->indsn = null;
+    $std->indsn = 1;
     $std->vtottrib = 22.08;
     $std->infAdFisco = 'Sei uma coisa qualquer';
     $std->pRedBC = 5;
@@ -226,12 +243,7 @@ try {
     $std = new \stdClass();
     $std->cpf = '12345678908';
     $make->tagautxml($std);
-    //$std = new \stdClass();
-    //$std->cpf = '12345678909';
-    //$make->tagautxml($std);
-    //$std = new \stdClass();
-    //$std->cpf = '12345678910';
-    //$make->tagautxml($std);
+    
 
     $std = new \stdClass();
     $std->tPag = '03';
@@ -257,9 +269,7 @@ try {
     $std->vPag = 100.00;
     $make->tagpag($std);
 
-    $std = new \stdClass();
-    $std->cpf = '12345678901';
-    $make->tagautxml($std);
+
 
     $std = new \stdClass();
     //$std->infAdFisco = 'Senhor fisco já estou duro.';
@@ -279,15 +289,7 @@ try {
     $std = new \stdClass();
     //$std->qrCodBPe = 'http://dfe-portal.svrs.rs.gov.br/bpe/QrCode?chBPe=35191112345678901234630010000001002000003335&tpAmb=2';
     //$std->boardPassBPe = '123456789012345678901234567890123456789012345678901234567890';
-    $make->taginfbpesupl($std);
-    
-    //$xml = $make->parse();
-    //header('Content-Type: application/xml; charset=utf-8');
-    //echo "<pre>";
-    //echo htmlentities($xml);
-    //echo "</pre>";
-    //print_r($make->errors);
-    //die;
+    //$make->taginfbpesupl($std);
     
     $content = file_get_contents('expired_certificate.pfx');
     $certificate = Certificate::readPfx($content, 'associacao');
@@ -307,19 +309,12 @@ try {
     $tools = new Tools($config, $certificate);
     $tools->loadSoapClass($soap);
     
-    
     //$tools->setSignatureInQRCode(true);
-    
+    //$xml = $make->parse();
     $xml = $tools->signBPe($make->parse());
     header('Content-Type: application/xml; charset=utf-8');
     echo "{$xml}";
-    die;
-    
-    $response = $tools->sefazEnviaLote([$xmlsigned]);
-    
-    echo FakePretty::prettyPrint($response, '');
-    //header('Content-Type: application/xml; charset=utf-8');
-    //echo "{$xmlsigned}";
+
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

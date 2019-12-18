@@ -54,17 +54,17 @@ class Make extends MakeBase
             //infBPe tag  OBRIGATÓRIA mas pode ser construida a partir de outras
             if (!empty($this->ide) && !empty($this->emit)) {
                 //construir a chave e montar a tag
-                $data = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:sP', $this->ide->std->dhemi);
+                $data = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $this->ide->std->dhemi);
                 $buildId = Keys::build(
                     $this->ide->std->cuf,
                     $data->format('y'),
                     $data->format('m'),
-                    $this->emit->std->cnpj,
-                    $this->ide->std->mod,
-                    $this->ide->std->serie,
-                    $this->ide->std->nbp,
-                    $this->ide->std->tpemis,
-                    $this->ide->std->cbp
+                    substr($this->emit->std->cnpj, 0, 14),
+                    '63',
+                    intval($this->ide->std->serie),
+                    intval($this->ide->std->nbp),
+                    intval($this->ide->std->tpemis),
+                    intval($this->ide->std->cbp)
                 );
                 if (empty($this->infbpe)) {
                     $this->ide->std->cdv = substr($buildId, -1);
@@ -123,6 +123,21 @@ class Make extends MakeBase
             $imp = $this->dom->createElement('imp');
             //cria imp/ICMS
             $this->appendNodeToParent($imp, $this->icms);
+            
+            $this->dom->addChild(
+                $imp,
+                'vTotTrib',
+                $this->icms->std->vtottrib,
+                false,
+                ''
+            );
+            $this->dom->addChild(
+                $imp,
+                'infAdFisco',
+                $this->icms->std->infadfisco,
+                false,
+                ''
+            );
             //cria imp/ICMSUFFIM
             $this->appendNodeToParent($imp, $this->icmsuffim);
             $this->dom->appChild($infBPe, $imp);
