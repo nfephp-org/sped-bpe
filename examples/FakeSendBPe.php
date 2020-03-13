@@ -55,8 +55,9 @@ try {
     $std->im = '123456787';
     $std->cnae = '1234567';
     $std->crt = 3;
+    $std->tar = 'C1233';
     $make->tagemit($std);
-
+    
     $std = new \stdClass();
     $std->xLgr = 'Rua Santana do Mirante';
     $std->nro = '123';
@@ -68,9 +69,8 @@ try {
     $std->uf = 'MG';
     $std->fone = '999999999';
     $std->email = 'fulano@hamburgo.com.br';
-    $std->tar = 'C1233';
     $make->tagenderemit($std);
-
+    
     $std = new \stdClass();
     $std->xNome = 'Fulano da Silva';
     $std->cnpj = null;
