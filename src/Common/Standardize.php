@@ -43,7 +43,14 @@ class Standardize
         'bpeResultMsg',
         'retBPe',
         'consStatServBPe',
-        'retConsStatServBPe'
+        'retConsStatServBPe',
+        'BPe',
+        'consSitBPe',
+        'retConsSitBPe',
+        'eventoBPe',
+        'retEventoBPe',
+        'evCancBPe',
+        'evNaoEmbBPe',
     ];
 
     /**
