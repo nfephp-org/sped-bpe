@@ -80,6 +80,14 @@ class Emit extends Tag implements TagInterface
             'required' => false,
             'info'     => 'Código de Regime Tributário',
             'format'   => ''
+        ],
+        'TAR' => [
+            'type'     => 'string',
+            'regex'    => '^.{1,20}',
+            'position' => 'node',
+            'required' => false,
+            'info'     => 'Termo de Autorização de Serviço Regular',
+            'format'   => ''
         ]
     ];
 }

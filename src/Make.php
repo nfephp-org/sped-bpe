@@ -105,14 +105,24 @@ class Make extends MakeBase
             $infBPe = $this->infbpe->toNode();
             //cria Ide
             $this->appendNodeToParent($infBPe, $this->ide);
-            //cria emit
-            $this->appendNodeToParent($infBPe, $this->emit, $this->enderemit);
+            //se existir a tag TTAR o endereço deve ser colocado antes dessa tag
+            if (!empty($this->emit->std->tar)) {
+                $node = $this->emit->toNode();
+                $subnode = $this->enderemit->toNode();
+                $this->dom->appChildBefore($node, $subnode, 'TAR');
+                $this->dom->appChild($infBPe, $node);
+            } else {
+                //cria emit e enderemit
+                $this->appendNodeToParent($infBPe, $this->emit, $this->enderemit);
+            }
             //cria comp
             $this->appendNodeToParent($infBPe, $this->comp, $this->endercomp);
             //cria agencia
             $this->appendNodeToParent($infBPe, $this->agencia, $this->enderagencia);
-            //cria infBPeSub
-            $this->appendNodeToParent($infBPe, $this->infbpesub);
+            //cria infBPeSub apenas se for um BPe de substituição
+            if ($this->ide->std->tpbpe == 3) {
+                $this->appendNodeToParent($infBPe, $this->infbpesub);
+            }
             //cria infPassagem
             $this->appendNodeToParent($infBPe, $this->infpassagem, $this->infpassageiro);
             //cria infViagem
