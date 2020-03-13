@@ -168,6 +168,9 @@ class Icms extends Tag implements TagInterface
                     ''
                 );
                 break;
+            case '40':
+            case '41':
+            case '51':
             case '45':
                 $icms = $this->dom->createElement('ICMS45');
                 $this->dom->addChild(

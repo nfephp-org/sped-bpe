@@ -21,7 +21,7 @@ class Complements
     {
         $st = new Standardize();
         $key = ucfirst($st->whichIs($request));
-        if ($key != 'BPe' && $key != 'EnvEvento') {
+        if ($key != 'BPe' && $key != 'EventoBPe') {
             //wrong document, this document is not able to recieve a protocol
             throw DocumentsException::wrongDocument(0, $key);
         }
@@ -49,11 +49,11 @@ class Complements
         $dombpe->preserveWhiteSpace = false;
         $dombpe->loadXML($bpe);
         $proBPe = $dombpe->getElementsByTagName('protBPe')->item(0);
-        if (empty($proNFe)) {
+        if (empty($proBPe)) {
             //not protocoladed NFe
             throw DocumentsException::wrongDocument(1);
         }
-        $chaveBPe = $proNFe->getElementsByTagName('chBPe')->item(0)->nodeValue;
+        $chaveBPe = $proBPe->getElementsByTagName('chBPe')->item(0)->nodeValue;
 
         $domcanc = new DOMDocument('1.0', 'utf-8');
         $domcanc->formatOutput = false;
@@ -78,15 +78,15 @@ class Complements
                 && ($tpEvento == Tools::EVT_CANCELA
                     || $tpEvento == Tools::EVT_CANCELASUBSTITUICAO
                 )
-                && $chaveEvento == $chaveNFe
+                && $chaveEvento == $chaveBPe
             ) {
-                $proNFe->getElementsByTagName('cStat')
+                $proBPe->getElementsByTagName('cStat')
                     ->item(0)
                     ->nodeValue = '101';
-                $proNFe->getElementsByTagName('nProt')
+                $proBPe->getElementsByTagName('nProt')
                     ->item(0)
                     ->nodeValue = $nProt;
-                $proNFe->getElementsByTagName('xMotivo')
+                $proBPe->getElementsByTagName('xMotivo')
                     ->item(0)
                     ->nodeValue = 'Cancelamento de BPe homologado';
                 $procXML = Strings::clearProtocoledXML($dombpe->saveXML());
@@ -134,8 +134,8 @@ class Complements
             $dig = $infProt->getElementsByTagName("digVal")->item(0);
             $key = $infProt->getElementsByTagName("chBPe")->item(0)->nodeValue;
             if (isset($dig)) {
-                $digProt = $dig->nodeValue;
-                if ($digProt == $digNFe && $chave == $key) {
+                $digProt = base64_decode($dig->nodeValue);
+                if ($digProt == $digBPe && $chave == $key) {
                     //100 Autorizado
                     //150 Autorizado fora do prazo
                     //110 Uso Denegado
@@ -169,26 +169,22 @@ class Complements
      * @return string
      * @throws \InvalidArgumentException
      */
-    protected static function addEnvEventoProtocol($request, $response)
+    protected static function addEventoBPeProtocol($request, $response)
     {
         $ev = new \DOMDocument('1.0', 'UTF-8');
         $ev->preserveWhiteSpace = false;
         $ev->formatOutput = false;
         $ev->loadXML($request);
-        //extrai numero do lote do envio
-        $envLote = $ev->getElementsByTagName('idLote')->item(0)->nodeValue;
         //extrai tag evento do xml origem (solicitação)
         $event = $ev->getElementsByTagName('evento')->item(0);
-        $versao = $event->getAttribute('versao');
+        $versao = $ev->getElementsByTagName('verAplic')->item(0);
 
         $ret = new \DOMDocument('1.0', 'UTF-8');
         $ret->preserveWhiteSpace = false;
         $ret->formatOutput = false;
         $ret->loadXML($response);
-        //extrai numero do lote da resposta
-        $resLote = $ret->getElementsByTagName('idLote')->item(0)->nodeValue;
         //extrai a rag retEvento da resposta (retorno da SEFAZ)
-        $retEv = $ret->getElementsByTagName('retEvento')->item(0);
+        $retEv = $ret->getElementsByTagName('retEventoBPe')->item(0);
         $cStat  = $retEv->getElementsByTagName('cStat')->item(0)->nodeValue;
         $xMotivo = $retEv->getElementsByTagName('xMotivo')->item(0)->nodeValue;
         $tpEvento = $retEv->getElementsByTagName('tpEvento')->item(0)->nodeValue;
@@ -198,12 +194,6 @@ class Complements
         }
         if (!in_array($cStat, $cStatValids)) {
             throw DocumentsException::wrongDocument(4, "[$cStat] $xMotivo");
-        }
-        if ($resLote !== $envLote) {
-            throw DocumentsException::wrongDocument(
-                5,
-                "Os numeros de lote dos documentos são diferentes."
-            );
         }
         return self::join(
             $ev->saveXML($event),

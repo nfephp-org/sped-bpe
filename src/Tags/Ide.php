@@ -185,7 +185,7 @@ class Ide extends Tag implements TagInterface
      * Load TAG parameters
      * @param \stdClass $std
      */
-    public function loadParameters($std)
+    public function loadParameters(\stdClass $std)
     {
         $this->std = $this->equalize($std, $this->name, $this->possible);
         $this->postProcess();
