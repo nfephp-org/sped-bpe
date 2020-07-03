@@ -134,7 +134,7 @@ class Complements
             $dig = $infProt->getElementsByTagName("digVal")->item(0);
             $key = $infProt->getElementsByTagName("chBPe")->item(0)->nodeValue;
             if (isset($dig)) {
-                $digProt = base64_decode($dig->nodeValue);
+                $digProt = $dig->nodeValue;
                 if ($digProt == $digBPe && $chave == $key) {
                     //100 Autorizado
                     //150 Autorizado fora do prazo
