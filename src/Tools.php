@@ -77,6 +77,7 @@ class Tools extends ToolsCommon
         $servico = 'BPeRecepcao';
         $sxml = implode("", $aXml);
         $sxml = preg_replace("/<\?xml.*?\?>/", "", $sxml);
+        $sxml = ltrim($sxml);
         $this->servico(
             $servico,
             $this->config->siglaUF,
