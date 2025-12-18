@@ -170,7 +170,7 @@ class Tools
      * @var array
      */
     protected $availableVersions = [
-        '1.00' => 'PL_BPe_100b'
+        '1.00' => 'PL_BPe_100b_RTC'
     ];
 
     /**
@@ -193,6 +193,7 @@ class Tools
         $this->setEnvironmentTimeZone($this->config->siglaUF);
         $this->certificate = $certificate;
         $this->setEnvironment($this->config->tpAmb);
+        if ($this->config->schemes) $this->availableVersions = ['1.00' => $this->config->schemes];
     }
 
     /**

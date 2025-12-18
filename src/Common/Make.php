@@ -7,6 +7,7 @@ namespace NFePHP\BPe\Common;
  */
 use NFePHP\Common\DOMImproved as Dom;
 use NFePHP\Common\Keys;
+use NFePHP\Common\Strings;
 use NFePHP\BPe\Factories\TagInterface;
 use \DOMElement;
 
@@ -216,5 +217,60 @@ abstract class Make
     protected function hashCSRT($csrt, $chave)
     {
         return strtoupper(base64_encode(sha1($csrt . $chave, true)));
+    }
+
+
+    public static function conditionalNumberFormatting($value = null, int $decimal = 2): ?string
+    {
+        if (is_numeric($value)) {
+            return number_format($value, $decimal, '.', '');
+        }
+        return null;
+    }
+    public static function equilizeParameters(object $data, array $possible): object
+    {
+        $ppl = array_map('strtolower', $possible);
+        $data = self::propertiesToLower($data);
+        $equalized = Strings::equilizeParameters(
+            $data,
+            $ppl,
+            false
+        );
+        return self::propertiesToBack($equalized, $possible);
+    }
+
+    public static function propertiesToLower(object $data): object
+    {
+        $properties = get_object_vars($data);
+        $clone = clone $data; 
+        foreach ($clone as $key => $value) {
+            unset($clone->$key);
+        }
+        foreach ($properties as $key => $value) {
+            if (is_object($value)) {
+                $value = self::propertiesToLower($value);
+            }
+            $nk = trim(strtolower($key));
+            $clone->$nk = $value;
+        }
+        return $clone;
+    }
+
+    public static function propertiesToBack(object $data, array $possible): object
+    {
+        $new = clone $data;
+        foreach ($new as $key => $value) {
+            unset($new->$key);
+        }
+        $properties = get_object_vars($data);
+        foreach ($properties as $key => $value) {
+            foreach ($possible as $p) {
+                if (strtolower($p) === $key) {
+                    $new->$p = $value;
+                    break;
+                }
+            }
+        }
+        return $new;
     }
 }
